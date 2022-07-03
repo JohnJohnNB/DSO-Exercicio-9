@@ -1,12 +1,5 @@
-from ... import
-
-...
-from ... import
-
-...
-from ... import
-
-...
+from empresa import Empresa
+from empresa_duplicada_exception import EmpresaDuplicadaException
 
 
 class ControladorSistemaEmpresas():
@@ -23,7 +16,12 @@ class ControladorSistemaEmpresas():
     '''
 
     def inclui_empresa(self, empresa: Empresa):
-        pass
+        if isinstance(empresa, Empresa):
+            for empresa_existente in self.__empresas:
+                if empresa_existente.cnpj == empresa.cnpj:
+                    raise EmpresaDuplicadaException
+            else:
+                self.__empresas.append(empresa)
 
     '''
     Permite excluir uma empresa cadastrada na EmpresaDAO
@@ -31,7 +29,8 @@ class ControladorSistemaEmpresas():
     '''
 
     def exclui_empresa(self, empresa: Empresa):
-        pass
+        if isinstance(empresa, Empresa) and empresa in self.__empresas:
+            self.__empresas.remove(empresa)
 
     '''
     Permite buscar uma empresa na lista de empresas pelo CNPJ
@@ -40,7 +39,11 @@ class ControladorSistemaEmpresas():
     '''
 
     def busca_empresa_pelo_cnpj(self, cnpj: int) -> Empresa:
-        pass
+        for empresa in self.__empresas:
+            if empresa.cnpj == cnpj:
+                return empresa
+        else:
+            return None
 
     '''
     Retorna a lista de empresas cadastradas
@@ -59,4 +62,7 @@ class ControladorSistemaEmpresas():
     '''
 
     def calcula_total_impostos(self) -> float:
-        pass
+        total_impostos = 0
+        for empresa in self.__empresas:
+            total_impostos += empresa.total_impostos()
+        return total_impostos

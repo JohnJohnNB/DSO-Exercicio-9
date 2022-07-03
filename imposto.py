@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
-
-...
+from incidencia_imposto import IncidenciaImposto
 
 
 class Imposto(ABC):
@@ -13,7 +12,6 @@ Operacao abstrata que ira calcular a aliquota
 Cada classe que ira estender Imposto devera implementar o calculo de acordo 
 com a sua regra  
 '''
-
     @abstractmethod
     def calcula_aliquota(self) -> float:
         pass

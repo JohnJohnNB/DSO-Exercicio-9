@@ -1,5 +1,5 @@
 from imposto import Imposto
-from incidenciaImposto import IncidenciaImposto
+from incidencia_imposto import IncidenciaImposto
 
 
 '''
@@ -14,13 +14,17 @@ entao a aliquota calculada sera de 9.8
 
 
 class ISS(Imposto):
-    def __init__( ...
+    def __init__(self, aliquota: float, incidencia_imposto: IncidenciaImposto):
+        super().__init__(aliquota, incidencia_imposto)
+        self.__servicos = []
 
     def inclui_servico(self, nome: str):
-        ...
+        self.__servicos.append(nome)
 
     def exclui_servico(self, nome: str):
-        ...
+        self.__servicos.remove(nome)
 
     def calcula_aliquota(self):
-        ...
+        numero_servicos = len(self.__servicos)
+        aliquota = self.aliquota * (1 - numero_servicos * 0.01)
+        return aliquota

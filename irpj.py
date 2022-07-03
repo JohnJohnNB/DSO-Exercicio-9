@@ -1,6 +1,6 @@
-from ... import
+from imposto import Imposto
+from incidencia_imposto import IncidenciaImposto
 
-...
 
 '''
 O calculo da Aliquota do IRPJ (percentual do imposto) leva em conta
@@ -11,5 +11,12 @@ e o "desconto" for 1, entao a aliquota calculada sera de 9.0
 '''
 
 
-class IRPJ(...):
-    ...
+class IRPJ(Imposto):
+    def __init__(self, aliquota: float, incidencia_imposto: 
+        IncidenciaImposto, desconto: float):
+        super().__init__(aliquota, incidencia_imposto)
+        self.__desconto = desconto
+
+    def calcula_aliquota(self):
+        aliquota = self.aliquota - self.__desconto
+        return aliquota
